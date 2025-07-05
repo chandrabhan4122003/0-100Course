@@ -20,6 +20,7 @@
   "homepage": "https://github.com/chandrabhan4122003/0-100Course#readme",
   "dependencies": {
     "body-parser": "^2.2.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "zod": "^3.25.74"
   }
 }
