@@ -2,8 +2,8 @@
 // it is a scripting language specification on which JavaScript is based
 // it is a standard for scripting on the web
 
-const { request } = require("http")
-const { url } = require("inspector")
+// const { request } = require("http")
+// const { url } = require("inspector")
 
 // Javascirpt is  a scripting language that is based on ECMA Script
 
