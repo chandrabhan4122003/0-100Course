@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+    username:<input id="username" type="text"placeholder="Username">
+    password:<input id="password" type="password" placeholder="Password">
+    <button onClick="login()">Login</button>
+  
+    <h2>get users</h2>
+    <button onClick="getUsers()">Get Users</button>
+  <script>
+    let token=''
+    async function login(){
+      const username=document.getElementById('username').value;
+      const password=document.getElementById('password').value;
+      const response=await fetch('http://localhost:3002/signin',{
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({username,password})
+      });
+      const data=await response.json();
+      if(data.token){
+        token=data.token;
+        alert("login succes")
+      }else{
+        alert("login failed")
+      }
+    }
+    async function getUsers(){
+      const response=await fetch('http://localhost:3002/users',{
+        method:'GET',
+        headers:{
+          'Authorization':'Bearer'+token
+        }
+      });
+      const data=await response.json();
+      console.log(data)
+      alert(JSON.stringify(data));
+    }
+    
+  </script>
+</body>
+</html>
