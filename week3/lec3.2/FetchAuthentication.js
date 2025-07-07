@@ -46,64 +46,112 @@
 // returns an array of all users if user is signed in (token is correct ) returns 403 status code if not 
 
 //
-const express=require("express")
-const jwt=require("jsonwebtoken")
-const jwtPassword="123456";
-const app=express();
-app.use(express.json())
-const ALL_USERS=[
-  {username:"chinku@gmail.com",
-    password:"123",
-    name:"Chinku"
-  },
-  {
-    username:"raman@gmail.com",
-    password:"123321",
-    name:"Raman"
-  },
-  {
-    username:"priya@gmail.com",
-    password:"123321",
-    name:"Priya kumari"
-  },
-];
-function userExists(username,password){
-  // write logic to return true or false if this user exists in ALL_USERS array
-  for(let user of ALL_USERS){
-    if(user.username==username&&user.password==password){
-      return true;
-    }
-  }
-  return false;
-}
-app.post("/signin",function(req,res){
-  const username=req.body.username;
-  const password=req.body.password;
-  if(!userExists(username,password)){
-      return res.status(403).json({
-        msg:"user doesnot exist in our memory db"
-      });
-  }
-  var token=jwt.sign({username:username},jwtPassword);
-  return res.json({
-    token,
-  });
-});
-app.get("/users",function(req,res){
-    const token =req.headers.authorization;
-    try{
-        const decoded=jwt.verify(token,jwtPassword);
-        const username=decoded.username;
-        res.json({
-          msg:"Welcome "+username
-        })
-    }
-    catch(err){
-      return res.status(403).json({
-        msg:"invalid token "
-      });
-    }
-});
-app.listen(3002,function(){
-  console.log("server is listening on port 3002")
-})
+// const express=require("express")
+// const jwt=require("jsonwebtoken")
+// const jwtPassword="123456";
+// const app=express();
+// app.use(express.json())
+// const ALL_USERS=[
+//   {username:"chinku@gmail.com",
+//     password:"123",
+//     name:"Chinku"
+//   },
+//   {
+//     username:"raman@gmail.com",
+//     password:"123321",
+//     name:"Raman"
+//   },
+//   {
+//     username:"priya@gmail.com",
+//     password:"123321",
+//     name:"Priya kumari"
+//   },
+// ];
+// function userExists(username,password){
+//   // write logic to return true or false if this user exists in ALL_USERS array
+//   for(let user of ALL_USERS){
+//     if(user.username==username&&user.password==password){
+//       return true;
+//     }
+//   }
+//   return false;
+// }
+// app.post("/signin",function(req,res){
+//   const username=req.body.username;
+//   const password=req.body.password;
+//   if(!userExists(username,password)){
+//       return res.status(403).json({
+//         msg:"user doesnot exist in our memory db"
+//       });
+//   }
+//   var token=jwt.sign({username:username},jwtPassword);
+//   return res.json({
+//     token,
+//   });
+// });
+// app.get("/users",function(req,res){
+//     const token =req.headers.authorization;
+//     try{
+//         const decoded=jwt.verify(token,jwtPassword);
+//         const username=decoded.username;
+//         res.json({
+//           msg:"Welcome "+username
+//         })
+//     }
+//     catch(err){
+//       return res.status(403).json({
+//         msg:"invalid token "
+//       });
+//     }
+// });
+// app.listen(3002,function(){
+//   console.log("server is listening on port 3002")
+// })
+
+// Problem 5: ✅ MongoDB User Signup
+// Problem Statement:
+// Build a POST route /signup using Express and MongoDB that:
+
+// Accepts username, password, and name from the request body.
+
+// Checks if the user already exists in the MongoDB collection (duplicate prevention).
+
+// If the user does not exist, save the user to the database.
+
+// Return a success message: "User created successfully"
+
+// If the user already exists, return: "Username already exists"
+
+//
+// const express=require("express")
+// const app=express()
+// const mongoose=require("mongoose");
+
+// app.use(express.json())
+
+// mongoose.connect("your string ").then(()=>console.log("connected to mongodb")).catch((err)=>console.log("error ",err));
+
+// const User=mongoose.model("User",{
+//   name:String,
+//   username:String,
+//   password:String
+// });
+// app.post("/signup",async function(req,res){
+//   const {name,username,password}=req.body;
+//   const existingUser=await User.findOne({username:username});
+//   if(existingUser){
+//     return res.status(400).json({
+//       msg:"Username already exist"
+//     });
+//   }
+//   const user=new User({name,username,password});
+//   await user.save();
+//   res.status(201).json({
+//     msg:"User added successfully"
+//   })
+// })
+
+// app.listen(3002,function(){
+//   console.log("server is listening on port 3002")
+// })
+
