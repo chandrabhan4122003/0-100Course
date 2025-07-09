@@ -1,0 +1,77 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<Script>
+  function populateDiv(){
+    const a = document.getElementById("first").value;
+    const b = document.getElementById("second").value;
+     
+    // hello world 
+    // document
+    const ele=document.getElementById("finalSum"); // it is a reference of the html element // it is a dom object 
+    // ele.innerHTML=parseInt(a)+parseInt(b);
+    // console.log(ele);
+      }
+</Script>
+<body>
+  <input id="first"type="text" placeholder="first number ">
+  <br>
+  <br>
+  <input id="second" type="text" placeholder="second number">
+  <button onclick="populateDiv()">Calculate sum</button>
+  <div id="finalSum"></div>
+</body>
+</html> -->
+<!-- now lets you dont have accesss to the calculation logic on the frontend lets assume its a hard problem that someone has exposed on a backend server and you need to hit the backend server and get back the value  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<Script>
+  // to do debouncing in this function
+  function debouncePopulateDiv(){
+      // delay the call to populateDiv untill ive have not been called for 100ms and i ve have called at least once
+      setTimeout(function(){
+        populateDiv()
+      },100);
+  }
+  function populateDiv(){
+    const a=document.getElementById("first").value;
+    const b=document.getElementById("second").value;
+    // const element=document.getElementById("finalSum")
+    // fetch
+    fetch("https://dum-server.100xdevs.com/sum?a="+a+"&b"+b).then(function(res){
+        res.text().then(function(ans){
+          // console.log(ans)
+          document.getElementById("finalSum").innerHTML=ans;
+        })
+    })
+
+    
+    // element.innerHTML=parseInt(a)
+    // +parseInt(b);
+  }
+  // cleaner way of doing using async
+  // async function populateDiv2(){
+  //   const a=document.getElementById("first").value;
+  //   const b=document.getElementById("second").value;
+  //   const response=await fetch("https://dum-server.100xdevs.com/sum?a="+a+"&b"+b)
+  //   const ans=await response.text()
+  //   document.getElementById("finalSum").innerHTML=ans;
+  // }
+</Script>
+<body>
+  <input  oninput="debouncePopulateDiv" id="first"type="text" placeholder="first number">
+  <input  oninput="debouncePopulateDiv" id="second" type="text" placeholder="second number">
+  <!-- <button onclick="populateDiv()" >Calcuate Sum</button> -->
+  <div id="finalSum"></div>
+</body>
+</html>
