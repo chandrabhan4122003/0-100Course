@@ -37,11 +37,16 @@
 </head>
 <Script>
   // to do debouncing in this function
+  let timeout;
   function debouncePopulateDiv(){
       // delay the call to populateDiv untill ive have not been called for 100ms and i ve have called at least once
-      setTimeout(function(){
+
+      // how do uou cancel a clock?
+      clearTimeout(timeout);
+      const timeout=setTimeout(function(){
         populateDiv()
       },100);
+      // clearInterval(timeout);
   }
   function populateDiv(){
     const a=document.getElementById("first").value;
