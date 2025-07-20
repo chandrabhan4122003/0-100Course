@@ -1,16 +1,33 @@
 import { useState } from 'react'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
+
+// todo application
+// todo 
+// {
+    // todos:[{title:"todo1",description:"first todo",completed:""}]
+// }
+
+function App() {
+  const [todos,setTodos]=useState([
+    {title:"go to gym from 7-9",
+      description:"go to gym and do some exercise",
+      completed:false
+    },{
+      title:"study dsa",
+      description:"study dsa and practice problems",
+      completed:true
+    }
+  ])
+
+  
   return (
     <>
-    <div>
-      <button onClick={()=>setCount((count)=>count+1)}>Count is {count}</button>
-    </div>
+    
     </>
   )
 }
+
 
 export default App
