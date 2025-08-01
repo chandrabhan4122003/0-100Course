@@ -1,0 +1,86 @@
+Components: It is a reusable ,dynamic ,Html snippet that changes given the state
+
+me updating the state : it is rendering(dom changes )
+a state change triggers a re render a re-render represents the actual dom being manipulated when the state changes 
+
+you usually have to define all your componenst once and then all you have to do is update the state of your app React takes care of the re rendering of the app 
+
+lets create a counter app using state / components using js only 
+see lec5.1class.Html
+
+simple counter 
+app.jsx
+
+const [count,setCount]=useState(0);
+
+// function onClickHandler(){
+  //   state.count++;
+  // }
+  
+  // function onClickHandler(){
+  //   setCount(count+1);
+  // }
+
+<div>
+      {/* <button onClick={onClickHandler}>Count {count} </button> */}
+      <CustomButton count={count} setCount={setCount}></CustomButton>
+    </div>
+function CustomButton(props){
+  function onClickHandler(){
+    props.setCount(props.count+1);
+  }
+  return <button onClick={onClickHandler}>
+    Counter {props.count}
+  </button>
+}
+
+//Todo application
+import { useState } from 'react'
+import './App.css'
+
+
+
+// todo application
+// todo 
+// {
+    // todos:[{title:"todo1",description:"first todo",completed:""}]
+// }
+
+function App() {
+  const [todos,setTodos]=useState([
+    {title:"go to gym from 7-9",
+      description:"go to gym and do some exercise",
+      completed:false
+    },{
+      title:"study dsa",
+      description:"study dsa and practice problems",
+      completed:true
+    }
+  ])
+function addTodo(){
+  setTodos([...todos,{
+    title:"new todo",
+    description:"new todo description"
+  }])
+}
+  
+  return (
+    <>
+    {/* <Todo title={todos[0].title} description={todos[0].description}></Todo> */}
+    <button onClick={addTodo}>Add a random todo</button>
+    {todos.map(function(todo){
+        return <Todo title={todo.title} description={todo.description}></Todo>
+    })}
+    </>
+  )
+}
+function Todo(props){
+  return <div>
+    <h1>{props.title}</h1>
+    <p>{props.description}</p>
+   
+  </div>
+}
+
+export default App
+

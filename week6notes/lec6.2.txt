@@ -1,0 +1,128 @@
+app.js
+import { useEffect, useState } from 'react';
+import './App.css';
+import axios from 'axios';
+function App() {
+  const [todos,setTodos]=useState([]);
+  useEffect(()=>{
+    axios.get("https://sum-server.100xdevs.com/todos")
+    .then(function(response){
+      setTodos(response.data.todos)
+    })
+  },[]);
+  return (
+    <>
+    {todos.map(todo=><Todo title={todo.title} description={todo.description}/>)}
+    </>
+  )
+}
+function Todo({title,description}){
+  return <div>
+    <h1>{title}</h1>
+    <p>{description}</p>
+  </div>
+}
+
+export default App;
+
+
+
+// write a  component that takes a todo id as an input and fetches the data for that todo from the given endpoint and then renders it how would the depenecdyn array change//
+
+import { useEffect, useState } from 'react';
+import './App.css';
+import axios from 'axios';
+function App() {
+  
+  return (
+    <>
+   <div>
+    <Todo id={1}/>
+   </div>
+    </>
+  )
+}
+function Todo({id}){
+  const [todos,setTodos]=useState({});
+  useEffect(()=>{
+    axios.get("https://sum-server.")
+    .then(response=>{
+      setTodos(response.data.todo)
+    })
+  },[])
+  return <div>
+    <h1>{todos.title}</h1>
+    <p>{todos.description}</p>
+  </div>
+}
+
+
+export default App;
+//
+
+make four buttons named 1 2 3 4
+Grocery Shopping
+after clicking the button it should show the todo list according to the button no . and the todo list should be displayed  u can take array of todos
+
+import { useEffect, useState } from 'react';
+import './App.css';
+import axios from 'axios';
+function App() {
+  const todos=[{
+    title:"a",description:"b"
+  },
+  {title:"b",description:"c"},
+{title:"c",description:"d"},
+{title:"d",description:"e"},
+]
+  const [selectedId,setSelectedId]=useState(null);
+  return (
+    <>
+   <div>
+   <button onClick={function(){
+    setSelectedId(1)
+   }}>1</button>
+   <button onClick={function(){
+    setSelectedId(2)
+   }}>2</button>
+   <button onClick={function(){
+    setSelectedId(3)
+   }}>3</button>
+   <button onClick={function(){
+    setSelectedId(4)
+   }}>4</button>
+  
+   {/* {selectedId&&<Todo id={selectedId}/>} */}
+   {selectedId&&<TOdo todo={todos[selectedId-1]}/>}
+   </div>
+    </>
+  )
+}
+function Todo({id}){
+  const [todos,setTodos]=useState({});
+  useEffect(()=>{
+    axios.get("https://sum-server.")
+    .then(response=>{
+      setTodos(response.data.todo)
+    })
+  },[id])
+  return <div>
+    <h1>{todos.title}</h1>
+    <p>{todos.description}</p>
+  </div>
+}
+function TOdo({todo}){
+  return (
+    <div>
+      <h1>{todo.title}</h1>
+      <p>{todo.description}</p>
+    </div>
+  )
+}
+
+export default App;
+///
+create an app that does two things
+increase a counter by 1
+lets user put a value in an input box(n) and you need to show sum from 1-name
+one restriction-everything needs to be inside app
