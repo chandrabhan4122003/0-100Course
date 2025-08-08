@@ -1,0 +1,94 @@
+recoil 
+
+import {useContext} from 'react'
+import { CountContext } from './context';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { RecoilRoot,useRecoilState } from 'recoil';
+import countAtom from './store/atoms/count';
+import React from 'react'
+
+function App() {
+  
+ 
+  return (
+    <>
+    <RecoilRoot>
+
+    <Count />
+    </RecoilRoot>
+    </>
+  )
+}
+
+function Count(){
+  console.log("re-render")
+    return <div>
+      <CountRenderer/>
+      <Buttons/>
+    </div> 
+}
+
+
+function CountRenderer(){
+  const count=useRecoilValue(countAtom);
+return <div>
+  {count}
+  <EvenCountRenderer/>
+</div>
+}
+function EvenCountRenderer(){
+  const count=useRecoilValue(countAtom);
+  return <div>
+    {(count%2==0)?"it is even":null}
+  </div>
+}
+function Buttons(){
+  // const [count,setCount]=useRecoilState(countAtom)
+  const setCount=useSetRecoilState(countAtom);
+return <div>
+  <button onClick={()=>{
+    setCount(count=>count+1)
+  }}>Increase</button>
+  <button onClick={()=>{
+    setCount(count=>count-1);
+  }}>Decrease</button>
+</div>
+}
+export default App
+
+
+import {atom} from "recoil";
+
+const countAtom=atom({
+ key:"countAtom", //how do you uniquely identify this atom 
+ default:0
+});
+export default countAtom;
+
+
+
+//selector
+export const evenSelector=selector({
+  key:"evenSelector",
+  get:({get})=>{
+    const count=Props.get(countAtom);
+    return count%2;
+  }
+})
+
+function EvenCountRenderer(){
+  const isEven=useRecoilValue(evenSelector);
+  return <div>
+    {isEven?"it is even":null}
+  </div>
+}
+
+//assignemnt 
+Todo creation application with filtering logic 
+//todos ,filter
+
+2.imput boxes (title,description)=>atom
+button 
+todos=>atom
+filter (gym)=>atom
+selector (the current set of todos)

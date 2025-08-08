@@ -1,42 +1,26 @@
-
-import {useState,useContext} from 'react'
-import { CountContext } from './context';
+import { RecoilRoot, useRecoilValue } from "recoil";
+import { todosAtomFamily } from "./atoms";
 
 function App() {
-  const[count,setCount]=useState(0);
- 
+  return (
+    <RecoilRoot>
+      <Todo id={1}/>
+      <br></br>
+      <Todo id={2}/>
+      <Todo id={2}/>
+      <Todo id={2}/>
+
+    </RecoilRoot>
+  );
+}
+
+function Todo({id}){
+  const currentTodo=useRecoilValue(todosAtomFamily(id));
   return (
     <>
-    <CountContext.Provider value={count}>
-    <Count setCount={setCount}/>
-    </CountContext.Provider>
-    
-      
+    {currentTodo.title}
+    {currentTodo.description}
     </>
   )
 }
-
-function Count({setCount}){
-    return <div>
-      <CountRenderer/>
-      <Buttons setCount={setCount}/>
-    </div> 
-}
-function CountRenderer(){
-  const count=useContext(CountContext);
-return <div>
-  {count}
-</div>
-}
-function Buttons({setCount}){
-const count=useContext(CountContext)
-return <div>
-  <button onClick={()=>{
-    setCount(count+1)
-  }}>Increase</button>
-  <button onClick={()=>{
-    setCount(count-1);
-  }}>Decrease</button>
-</div>
-}
-export default App
+export default App;
